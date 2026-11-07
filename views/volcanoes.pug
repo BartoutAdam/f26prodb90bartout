@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+
+  -
+    let results = [
+      { volcano_name: "Mount Fuji", country: "Japan", elevation: 3776 },
+      { volcano_name: "Mount Vesuvius", country: "Italy", elevation: 1281 },
+      { volcano_name: "Mount Kilimanjaro", country: "Tanzania", elevation: 5895 }
+    ];
+
+  div(class="container-fluid")
+    div(class="row")
+      each item, index in results
+        div(class="col-sm-2", onclick=`buy(${index})`)
+          p Name: #{item.volcano_name}
+          p Country: #{item.country}
+          p Elevation: #{item.elevation} meters
+
+  script.
+    function buy(index) {
+      alert(`You purchased item ${index}.`);
+    }
