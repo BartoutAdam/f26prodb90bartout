@@ -6,7 +6,7 @@ An Express application using Pug templates to generate dynamic web pages.
 
 ## Render Server
 
-[https://f26pro90bartout.onrender.com](https://f26pro90bartout.onrender.com)
+[Live Render app](https://f26prodb90bartout.onrender.com/)
 
 ## Resource: Volcanoes
 
