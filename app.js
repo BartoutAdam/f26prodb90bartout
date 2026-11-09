@@ -4,11 +4,33 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config();
+const mongoose = require('mongoose');
+
+const Volcano = require('./models/volcano');
+
+mongoose.connect(process.env.MONGO_CON)
+  .then(async () => {
+    console.log('Connection to DB succeeded');
+
+    // Reset the volcano collection for this lab.
+    await Volcano.deleteMany({});
+    await Volcano.insertMany([
+      { volcano_name: 'Mount Fuji', country: 'Japan', elevation: 3776 },
+      { volcano_name: 'Mount Vesuvius', country: 'Italy', elevation: 1281 },
+      { volcano_name: 'Mount Kilimanjaro', country: 'Tanzania', elevation: 5895 }
+    ]);
+
+    console.log('Added 3 volcanoes');
+  })
+  .catch((error) => console.error('MongoDB setup error:', error.message));
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var volcanoesRouter = require('./routes/volcanoes');
 var gridRouter = require('./routes/grid');
 var pickRouter = require('./routes/pick');
+const resourceRouter = require('./routes/resource');
 
 var app = express();
 
@@ -27,6 +49,7 @@ app.use('/users', usersRouter);
 app.use('/volcanoes', volcanoesRouter);
 app.use('/grid', gridRouter);
 app.use('/selector', pickRouter);
+app.use('/resource', resourceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
