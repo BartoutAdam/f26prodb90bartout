@@ -24,3 +24,12 @@ exports.volcano_delete = function(req, res) {
 exports.volcano_update_put = function(req, res) {
   res.send('NOT IMPLEMENTED: Volcano update PUT ' + req.params.id);
 };
+
+exports.volcano_view_all_Page = async function(req, res, next) {
+  try {
+    const results = await Volcano.find();
+    res.render('volcanoes', { title: 'Search Results Volcanoes', results });
+  } catch (error) {
+    next(error);
+  }
+};

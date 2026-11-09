@@ -1,8 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const volcano = require('../controllers/volcano');
 
-router.get('/', function(req, res, next) {
-  res.render('volcanoes', { title: 'Search Results Volcanoes' });
-});
+router.get('/', volcano.volcano_view_all_Page);
 
 module.exports = router;
