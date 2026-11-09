@@ -13,8 +13,14 @@ exports.volcano_detail = function(req, res) {
   res.send('NOT IMPLEMENTED: Volcano detail ' + req.params.id);
 };
 
-exports.volcano_create_post = function(req, res) {
-  res.send('NOT IMPLEMENTED: Volcano create POST');
+exports.volcano_create_post = async function(req, res) {
+  try {
+    const { volcano_name, country, elevation } = req.body;
+    const volcano = await Volcano.create({ volcano_name, country, elevation });
+    res.status(201).json(volcano);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 exports.volcano_delete = function(req, res) {
