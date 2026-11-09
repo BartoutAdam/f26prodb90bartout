@@ -1,7 +1,12 @@
 const Volcano = require('../models/volcano');
 
-exports.volcano_list = function(req, res) {
-  res.send('NOT IMPLEMENTED: Volcano list');
+exports.volcano_list = async function(req, res) {
+  try {
+    const volcanoes = await Volcano.find();
+    res.json(volcanoes);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 exports.volcano_detail = function(req, res) {
