@@ -9,8 +9,18 @@ exports.volcano_list = async function(req, res) {
   }
 };
 
-exports.volcano_detail = function(req, res) {
-  res.send('NOT IMPLEMENTED: Volcano detail ' + req.params.id);
+exports.volcano_detail = async function(req, res) {
+  try {
+    const volcano = await Volcano.findById(req.params.id);
+
+    if (!volcano) {
+      return res.status(404).json({ error: 'Volcano not found' });
+    }
+
+    res.json(volcano);
+  } catch (error) {
+    res.status(400).json({ error: 'Could not look up that volcano ID' });
+  }
 };
 
 exports.volcano_create_post = async function(req, res) {
