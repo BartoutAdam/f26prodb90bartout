@@ -89,3 +89,6 @@ exports.volcano_view_one_Page = async function(req, res, next) {
     next(error);
   }
 };
+exports.volcano_create_Page = function(req, res) {
+  res.render('volcanocreate', { title: 'Create Volcano' });
+};
