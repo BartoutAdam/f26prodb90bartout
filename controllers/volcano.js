@@ -76,3 +76,16 @@ exports.volcano_view_all_Page = async function(req, res, next) {
     next(error);
   }
 };
+
+exports.volcano_view_one_Page = async function(req, res, next) {
+  try {
+    const volcano = await Volcano.findById(req.query.id);
+
+    res.status(volcano ? 200 : 404).render('volcanodetail', {
+      title: 'Volcano Detail',
+      toShow: volcano
+    });
+  } catch (error) {
+    next(error);
+  }
+};

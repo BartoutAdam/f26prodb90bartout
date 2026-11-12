@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  if toShow
+    dl
+      dt.volcanoAttr ID
+      dd= toShow._id
+      dt.volcanoAttr Name
+      dd= toShow.volcano_name
+      dt.volcanoAttr Country
+      dd= toShow.country
+      dt.volcanoAttr Elevation
+      dd #{toShow.elevation} meters
+  else
+    p Volcano not found.
