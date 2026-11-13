@@ -104,3 +104,15 @@ exports.volcano_update_Page = async function(req, res, next) {
     next(error);
   }
 };
+exports.volcano_delete_Page = async function(req, res, next) {
+  try {
+    const volcano = await Volcano.findById(req.query.id);
+
+    res.status(volcano ? 200 : 404).render('volcanodelete', {
+      title: 'Delete Volcano',
+      toShow: volcano
+    });
+  } catch (error) {
+    next(error);
+  }
+};

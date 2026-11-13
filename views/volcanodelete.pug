@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  h1= title
+
+  if toShow
+    dl
+      dt.volcanoAttr ID
+      dd= toShow._id
+      dt.volcanoAttr Name
+      dd= toShow.volcano_name
+      dt.volcanoAttr Country
+      dd= toShow.country
+      dt.volcanoAttr Elevation
+      dd #{toShow.elevation} meters
+
+    button#deleteButton.btn.btn-danger.me-2(
+      type="button"
+      data-url=`/resource/volcanoes/${toShow._id}`
+    ) Delete
+    a.btn.btn-secondary(href="/volcanoes") Cancel
+
+    script.
+      const button = document.getElementById('deleteButton');
+
+      button.addEventListener('click', async () => {
+        try {
+          const response = await fetch(button.dataset.url, {
+            method: 'DELETE'
+          });
+
+          if (!response.ok) {
+            throw new Error(`Server returned ${response.status}`);
+          }
+
+          alert('Volcano deleted successfully!');
+          window.location.href = '/volcanoes';
+        } catch (error) {
+          alert('Delete failed: ' + error.message);
+        }
+      });
+  else
+    p Volcano not found.
+    a.btn.btn-secondary(href="/volcanoes") Back to Volcanoes
