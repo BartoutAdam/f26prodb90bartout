@@ -2,16 +2,15 @@ extends layout
 
 block content
   h1= title
+  a.btn.btn-primary.mb-3(href="/volcanoes/create") Create Volcano
 
-  div(class="container-fluid")
-    div(class="row")
-      each item, index in results
-        div(class="col-sm-2", onclick=`buy(${index})`)
-          p Name: #{item.volcano_name}
-          p Country: #{item.country}
-          p Elevation: #{item.elevation} meters
-
-  script.
-    function buy(index) {
-      alert(`You purchased item ${index}.`);
-    }
+  ul.list-group
+    each item in results
+      li.list-group-item.d-flex.flex-wrap.align-items-center.justify-content-between.gap-2
+        span= item.volcano_name
+        div
+          a.btn.btn-outline-primary.btn-sm.me-2(href=`/volcanoes/detail?id=${item._id}`) Detail
+          a.btn.btn-outline-secondary.btn-sm.me-2(href=`/volcanoes/update?id=${item._id}`) Update
+          a.btn.btn-outline-danger.btn-sm(href=`/volcanoes/delete?id=${item._id}`) Delete
+    else
+      li.list-group-item No volcanoes yet.
