@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  h1= title
+
+  if toShow
+    p ID: #{toShow._id}
+    form#volcanoForm(action=`/resource/volcanoes/${toShow._id}`)
+      div.mb-3
+        label.volcanoAttr.me-2(for="volcano_name") Name
+        input#volcano_name(type="text" name="volcano_name" value=toShow.volcano_name required)
+      div.mb-3
+        label.volcanoAttr.me-2(for="country") Country
+        input#country(type="text" name="country" value=toShow.country required)
+      div.mb-3
+        label.volcanoAttr.me-2(for="elevation") Elevation (m)
+        input#elevation(type="number" name="elevation" value=toShow.elevation required)
+      button.btn.btn-primary(type="submit") Save Changes
+
+    script.
+      const form = document.getElementById('volcanoForm');
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        try {
+          const response = await fetch(form.action, {
+            method: 'PUT',
+            body: new URLSearchParams(new FormData(form))
+          });
+
+          if (!response.ok) {
+            throw new Error(`Server returned ${response.status}`);
+          }
+
+          alert('Volcano updated successfully!');
+        } catch (error) {
+          alert('Update failed: ' + error.message);
+        }
+      });
+  else
+    p Volcano not found.

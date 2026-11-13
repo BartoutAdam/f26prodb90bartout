@@ -92,3 +92,15 @@ exports.volcano_view_one_Page = async function(req, res, next) {
 exports.volcano_create_Page = function(req, res) {
   res.render('volcanocreate', { title: 'Create Volcano' });
 };
+exports.volcano_update_Page = async function(req, res, next) {
+  try {
+    const volcano = await Volcano.findById(req.query.id);
+
+    res.status(volcano ? 200 : 404).render('volcanoupdate', {
+      title: 'Update Volcano',
+      toShow: volcano
+    });
+  } catch (error) {
+    next(error);
+  }
+};
